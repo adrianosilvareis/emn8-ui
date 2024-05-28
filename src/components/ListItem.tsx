@@ -1,15 +1,10 @@
+import { Employee } from "../context/AppEmployeeContext";
 import { calculateDuration } from "../helper/calculate-duration";
 import { formatDate } from "../helper/format-date";
 
 type ListItemProps = {
   onViewDetails: () => void;
-  item: {
-    firstName: string;
-    lastName: string;
-    department: string;
-    hireDate: string;
-    active: boolean;
-  };
+  item: Employee;
 };
 
 function ListItem({ onViewDetails, item }: ListItemProps){
@@ -25,7 +20,7 @@ function ListItem({ onViewDetails, item }: ListItemProps){
         <div className="px-4 py-5 sm:p-6 flex-1">
           <h3>
             <span className="text-lg font-medium text-gray-900">{item.firstName} {item.lastName} </span>
-            ({item.department})
+            ({item.department.name})
           </h3>
           <p className="mt-1 max-w-2xl text-sm font-medium text-gray-900">Hire Date</p>
           <p>{formattedDate} ({duration})</p>

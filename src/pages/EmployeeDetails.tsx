@@ -1,6 +1,9 @@
+import { useDepartmentContext } from "../hooks/useDepartmentContext";
 import EmployeeHistory from "./EmployeeHistory";
 
 function EmployeeDetails() {
+    const { departments } = useDepartmentContext();
+
     return (
       <>
         <div className="w-full h-full flex">
@@ -33,9 +36,9 @@ function EmployeeDetails() {
             <div className="mt-2">
               <label className="block text-lg font-medium text-gray-700">Update Department</label>
               <select className="p-2 border border-gray-300 rounded-md w-80">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                {departments.map((department, index) => (
+                  <option value={department.id} key={index}>{department.name}</option>
+                ))}
               </select>
 
               <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right ml-4 h-10">
