@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListItem from "../components/ListItem";
 import Modal from "../components/Modal";
 import { useEmployeeContext } from "../hooks/useEmployeeContext";
@@ -6,10 +6,14 @@ import EmployeeAdd from "./EmployeeAdd";
 import EmployeeDetails from "./EmployeeDetails";
 
 function EmployeeList() {
-  const { employees } = useEmployeeContext();
+  const { employees, onFetchEmployee } = useEmployeeContext();
 
   const [isDetailModal, setIsDetailModal] = useState(false);
   const [isAddModal, setIsAddModal] = useState(false);
+
+  useEffect(() => {
+    onFetchEmployee()
+  }, [onFetchEmployee])
 
   const openAddModal = () => {
     setIsAddModal(true);
@@ -43,7 +47,7 @@ function EmployeeList() {
         <EmployeeDetails />
       </Modal>
       <Modal isOpen={isAddModal} onClose={closeAddModal}>
-        <EmployeeAdd />
+        <EmployeeAdd onSave={closeAddModal} />
       </Modal>
     </div>
   );

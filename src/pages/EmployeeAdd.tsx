@@ -7,19 +7,21 @@ type EmployeeProps = {
   lastName: string,
   phone: string,
   address: string,
-  departmentId: string
+  departmentId: string,
+  hireDate: Date,
 }
 
-function EmployeeAdd() {
+function EmployeeAdd({ onSave }: { onSave: () => void }) {
   const { departments } = useDepartmentContext();
-  const { onSaveEmployee } = useEmployeeContext();
+  const { onSaveEmployee, onFetchEmployee } = useEmployeeContext();
 
   const [formData, setFormData] = useState<EmployeeProps>({
     firstName: '',
     lastName: '',
     phone: '',
     address: '',
-    departmentId: ''
+    departmentId: '',
+    hireDate: new Date(),
   });
 
   const handleChange = (event: any) => {
@@ -30,8 +32,10 @@ function EmployeeAdd() {
     });
   };
 
-  const onSave = () => {
+  const handleSave = () => {
     onSaveEmployee(formData);
+    onFetchEmployee();
+    onSave();
   }
 
   return (
@@ -53,6 +57,15 @@ function EmployeeAdd() {
             id="lastName"
             name="lastName"
             value={formData.lastName}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label className="block text-lg font-medium text-gray-700">Telephone:</label>
+          <input type="date" className="border border-gray-300 rounded-md p-2 w-80 block"
+            id="hireDate"
+            name="hireDate"
+            value={formData.hireDate.toString()}
             onChange={handleChange}
           />
         </div>
@@ -87,7 +100,7 @@ function EmployeeAdd() {
           </select>
         </div>
 
-        <button className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right ml-4 h-10" onClick={onSave}>
+        <button className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right ml-4 h-10" onClick={handleSave}>
           save
         </button>
       </div>

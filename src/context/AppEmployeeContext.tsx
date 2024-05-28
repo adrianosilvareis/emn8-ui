@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import { getAllEmployee, getEmployeeById, saveEmployee, updateEmployee } from "../services/employee.api";
 import { Department } from "./AppDepartmentContext";
 
@@ -24,7 +24,8 @@ type AppContextType = {
   employee: Employee | null,
   onGetEmployeeDetails: (id: string) => void,
   onUpdateEmployeeDetails: (id: string, employee: Partial<Employee>) => void,
-  onSaveEmployee: (employee: Partial<Employee>) => void
+  onSaveEmployee: (employee: Partial<Employee>) => void,
+  onFetchEmployee: () => void
 };
 
 export const AppEmployeeContext = createContext({} as AppContextType);
@@ -48,13 +49,9 @@ export function AppEmployeeProvider({ children }: { children: React.ReactNode })
     setEmployee(data);
   }, []);
 
-  useEffect(() => {
-    const fetchEmployee = async () => {
-      const data = await getAllEmployee();
-      setEmployees(data);
-    };
-
-    fetchEmployee();
+  const onFetchEmployee = useCallback(async () => {
+    const data = await getAllEmployee();
+    setEmployees(data);
   }, []);
 
   return (
@@ -63,7 +60,8 @@ export function AppEmployeeProvider({ children }: { children: React.ReactNode })
       employee,
       onGetEmployeeDetails,
       onUpdateEmployeeDetails,
-      onSaveEmployee
+      onSaveEmployee,
+      onFetchEmployee
     }}>{children}</AppEmployeeContext.Provider>
   );
 }
