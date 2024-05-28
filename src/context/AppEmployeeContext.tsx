@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-import { getAllEmployee } from "../services/employee.api";
+import { createContext, useCallback, useEffect, useState } from "react";
+import { getAllEmployee, getEmployeeById, updateEmployee } from "../services/employee.api";
 import { Department } from "./AppDepartmentContext";
 
 export type Employee = {
@@ -10,22 +10,37 @@ export type Employee = {
   department: Department;
   phone?: string;
   address?: string;
-  history: EmployeeHistory[];
+  employeeHistory: EmployeeHistory[];
+  active: boolean;
 };
 
 export type EmployeeHistory = {
-  departmentName: string;
+  departmentId: string;
   startDate: Date;
 };
 
 type AppContextType = {
   employees: Employee[];
+  employee: Employee | null,
+  onGetEmployeeDetails: (id: string) => void,
+  onUpdateEmployeeDetails: (id: string, employee: Partial<Employee>) => void
 };
 
 export const AppEmployeeContext = createContext({} as AppContextType);
 
 export function AppEmployeeProvider({ children }: { children: React.ReactNode }) {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [employee, setEmployee] = useState<Employee | null>(null);
+  
+  const onGetEmployeeDetails = useCallback(async (id: string) => {
+    const data = await getEmployeeById(id);
+    setEmployee(data);
+  }, []);
+  
+  const onUpdateEmployeeDetails = useCallback(async (id: string, body: Partial<Employee>) => {
+    const data = await updateEmployee(id, body);
+    setEmployee(data);
+  }, []);
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -37,6 +52,11 @@ export function AppEmployeeProvider({ children }: { children: React.ReactNode })
   }, []);
 
   return (
-    <AppEmployeeContext.Provider value={{ employees }}>{children}</AppEmployeeContext.Provider>
+    <AppEmployeeContext.Provider value={{ 
+      employees,
+      employee,
+      onGetEmployeeDetails,
+      onUpdateEmployeeDetails
+    }}>{children}</AppEmployeeContext.Provider>
   );
 }

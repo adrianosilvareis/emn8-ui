@@ -1,74 +1,26 @@
-import { useDepartmentContext } from "../hooks/useDepartmentContext";
-import EmployeeHistory from "./EmployeeHistory";
+import EmployeeAvatar from "../components/EmployeeAvatar";
+import EmployeeForm from "../components/EmployeeForm";
+import EmployeeHireDisplay from "../components/EmployeeHireDIsplay";
+import EmployeeHistory from "../components/EmployeeHistory";
+import EmployeeInfo from "../components/EmployeeInfo";
 
 function EmployeeDetails() {
-    const { departments } = useDepartmentContext();
-
     return (
-      <>
-        <div className="w-full h-full flex">
-          <div className="size-64 m-2 bg-cyan-300 content-end">
-            <div className="bg-orange-500 w-11/12 mx-auto mb-2 p-1 text-center text-white">Inactive</div>
-          </div>
+        <>
+          <div className="w-full h-full flex">
+            <EmployeeAvatar />
 
-          <div className="mt-4">
-            <h1 className="text-2xl font-medium text-gray-700">
-              Employee Name
-            </h1>
+            <div className="mt-4">
+              <EmployeeInfo />
+              <EmployeeForm />                
+            </div>
 
-            <h3 className="mt-3">
-              <span className="text-lg font-medium text-gray-700">Employee ID: </span>
-              <span className="text-lg text-gray-700">123456</span>
-            </h3>
-            <h3>
-              <span className="text-lg font-medium text-gray-700">Department: </span>
-              <span className="text-lg text-gray-700">IT</span>
-            </h3>
-            <h3>
-              <span className="text-lg font-medium text-gray-700">Telefone: </span>
-              <span className="text-lg text-gray-700">123-456-7890</span>
-            </h3>
-            <h3>
-              <span className="text-lg font-medium text-gray-700">Address: </span>
-              <span className="text-lg text-gray-700">123 Main St, Anytown, USA</span>
-            </h3>
-
-            <div className="mt-2">
-              <label className="block text-lg font-medium text-gray-700">Update Department</label>
-              <select className="p-2 border border-gray-300 rounded-md w-80">
-                {departments.map((department, index) => (
-                  <option value={department.id} key={index}>{department.name}</option>
-                ))}
-              </select>
-
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right ml-4 h-10">
-                update
-              </button>
+            <div className="ml-8">
+              <EmployeeHireDisplay />
             </div>
           </div>
-
-          <div className="ml-8">
-            <h1 className="text-2xl font-medium text-gray-700">
-              Hire Date
-            </h1>
-            <h3 className="text-lg text-gray-700">
-              May 2, 2021
-            </h3>
-            <h3 className="text-lg text-gray-700">
-              2y - 1m - 4d
-            </h3>
-
-            <button className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded float-right ml-4 h-10">
-              Deactivate
-            </button>
-
-            <button className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right ml-4 h-10">
-              Activate
-            </button>
-          </div>
-        </div>
-        <EmployeeHistory />
-      </>
+          <EmployeeHistory />
+        </>
     );
   }
   

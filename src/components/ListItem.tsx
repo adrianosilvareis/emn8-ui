@@ -1,6 +1,7 @@
 import { Employee } from "../context/AppEmployeeContext";
 import { calculateDuration } from "../helper/calculate-duration";
 import { formatDate } from "../helper/format-date";
+import { useEmployeeContext } from "../hooks/useEmployeeContext";
 
 type ListItemProps = {
   onViewDetails: () => void;
@@ -11,7 +12,12 @@ function ListItem({ onViewDetails, item }: ListItemProps){
   const duration = calculateDuration(new Date(item.hireDate));
   const formattedDate = formatDate(new Date(item.hireDate));
 
-  // salvar o item em um context api e fornecer-lo para o employeeDetails
+  const { onGetEmployeeDetails } = useEmployeeContext();
+
+  const onOpenViewDetail = () => {
+    onGetEmployeeDetails(item.id);
+    onViewDetails();
+  }
 
   return (
     <div className="col-span-1 bg-white overflow-hidden shadow rounded-lg">
@@ -26,7 +32,7 @@ function ListItem({ onViewDetails, item }: ListItemProps){
           <p>{formattedDate} ({duration})</p>
         </div>
 
-        <button className="w-x bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right mt-10 mr-4 h-10" onClick={onViewDetails}>
+        <button className="w-x bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right mt-10 mr-4 h-10" onClick={onOpenViewDetail}>
           View Details
         </button>
       </div>
