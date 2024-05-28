@@ -28,7 +28,7 @@ function ListItem({ onViewDetails, item }: ListItemProps){
             ({item.department})
           </h3>
           <p className="mt-1 max-w-2xl text-sm font-medium text-gray-900">Hire Date</p>
-          <p>{formattedDate} {duration}</p>
+          <p>{formattedDate} ({duration})</p>
         </div>
 
         <button className="w-x bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right mt-10 mr-4 h-10" onClick={onViewDetails}>

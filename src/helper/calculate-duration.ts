@@ -7,5 +7,5 @@ export function calculateDuration(givenDate: Date): string {
     Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24 * 30)) % 12;
   const days = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24)) % 30;
 
-  return `(${years}y - ${months}m - ${days}d)`;
+  return `${years}y - ${months}m - ${days}d`;
 }
