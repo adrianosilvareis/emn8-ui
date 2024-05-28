@@ -21,7 +21,7 @@ function EmployeeInfo () {
           <span className="text-lg text-gray-700">{employee.department.name}</span>
         </h3>
         <h3>
-          <span className="text-lg font-medium text-gray-700">Telefone: </span>
+          <span className="text-lg font-medium text-gray-700">Telephone: </span>
           <span className="text-lg text-gray-700">{employee.phone}</span>
         </h3>
         <h3>

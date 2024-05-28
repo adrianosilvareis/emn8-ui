@@ -37,3 +37,23 @@ export const updateEmployee = async (
     return null;
   }
 };
+
+export const saveEmployee = async (employee: Partial<Employee>) => {
+  try {
+    const response = await api.post("/", employee);
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching Employee: ", error.message);
+    return null;
+  }
+};
+
+export const createEmployee = async () => {
+  try {
+    const response = await api.post(`/create-faker-employee`);
+    return response.data;
+  } catch (error: any) {
+    console.log("Error fetching Employee: ", error.message);
+    return null;
+  }
+};
