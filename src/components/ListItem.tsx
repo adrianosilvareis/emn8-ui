@@ -24,7 +24,7 @@ function ListItem({ onViewDetails, item }: ListItemProps){
         <div className="w-24 h-24 bg-gray-200 rounded-full overflow-hidden m-4"></div>
         <div className="px-4 py-5 sm:p-6 flex-1">
           <h3>
-            <span className="text-lg leading-6 font-medium text-gray-900">{item.firstName} {item.lastName} </span>
+            <span className="text-lg font-medium text-gray-900">{item.firstName} {item.lastName} </span>
             ({item.department})
           </h3>
           <p className="mt-1 max-w-2xl text-sm font-medium text-gray-900">Hire Date</p>
