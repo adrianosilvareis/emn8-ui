@@ -2,7 +2,9 @@ import axios from "axios";
 import { Employee } from "./../context/AppEmployeeContext";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/employee"
+  baseURL: `${
+    process.env.REACT_APP_API_URL ?? "http://localhost:5000"
+  }/employee`
 });
 
 export const getAllEmployee = async () => {
