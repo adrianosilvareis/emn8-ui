@@ -1,5 +1,6 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { AppDepartmentProvider } from './context/AppDepartmentContext';
+import { AppEmployeeProvider } from './context/AppEmployeeContext';
 import './index.css';
 import EmployeeList from './pages/EmployeeList';
 import reportWebVitals from './reportWebVitals';
@@ -8,9 +9,11 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <EmployeeList />
-  </React.StrictMode>
+  <AppEmployeeProvider>
+    <AppDepartmentProvider>
+      <EmployeeList />
+    </AppDepartmentProvider>
+  </AppEmployeeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
